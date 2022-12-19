@@ -23,3 +23,4 @@ To debug:
 * Comment out `RUN ls -lah lambdas/lambda-1/build/ && ls -lah lambdas/lambda-2/build/` in `Dockerfile`
 * Run docker build --build-arg VERSION=2022.12.17 -t foo:latest . && docker run -it foo:latest /bin/bash
 
+The diff of `pipenv` v2022.11.30 to v2022.12.17 can be found at https://github.com/pypa/pipenv/compare/v2022.11.30...v2022.12.17
