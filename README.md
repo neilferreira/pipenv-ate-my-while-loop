@@ -32,3 +32,32 @@ The diff of `pipenv` v2022.11.30 to v2022.12.17 can be found at https://github.c
 ## Hints
 
 * It doesn't look like `pipenv` is raising an exit code that is stopping our script.
+* The script below appears to work, so perhaps the while read is specifically problematic?
+
+```
+#!/bin/bash
+
+# Die on any errors
+set -e
+
+declare -a StringArray=("lambda-1" "lambda-2")
+
+for value in ${StringArray[@]}; do
+    mkdir -p lambdas/$value
+    mkdir -p lambdas/$value/src
+    cd lambdas/$value
+
+    echo """
+from setuptools import find_packages, setup
+setup(
+    name='"$value"',
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    install_requires=[],
+)
+    """ > setup.py
+
+    pipenv install -e .
+    cd -
+done
+```
