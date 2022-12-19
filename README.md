@@ -6,6 +6,9 @@ To automate unit testing on our CI/CD process, we use `find` to automatically it
 
 As of this weekend, our build process is failing because `pipenv` `2022.12.17` is eating our while loop and preventing all of our Lambda functions from being installed and tested.
 
+
+## Reproducing the issue
+
 ### Working command
 
 ```
@@ -24,3 +27,8 @@ To debug:
 * Run docker build --build-arg VERSION=2022.12.17 -t foo:latest . && docker run -it foo:latest /bin/bash
 
 The diff of `pipenv` v2022.11.30 to v2022.12.17 can be found at https://github.com/pypa/pipenv/compare/v2022.11.30...v2022.12.17
+
+
+## Hints
+
+* It doesn't look like `pipenv` is raising an exit code that is stopping our script.
