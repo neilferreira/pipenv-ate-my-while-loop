@@ -41,23 +41,15 @@ The diff of `pipenv` v2022.11.30 to v2022.12.17 can be found at https://github.c
 set -e
 
 declare -a StringArray=("lambda-1" "lambda-2")
-
-for value in ${StringArray[@]}; do
-    mkdir -p lambdas/$value
-    mkdir -p lambdas/$value/src
-    cd lambdas/$value
-
-    echo """
-from setuptools import find_packages, setup
-setup(
-    name='"$value"',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    install_requires=[],
-)
-    """ > setup.py
+for lambda in ${StringArray[@]}; do
+    echo "Processing $lambda"
+    cd lambdas/$lambda
 
     pipenv install -e .
+
+    echo "Completed processing $lambda"
     cd -
+
+    echo "Completed while loop for $lambda"
 done
 ```
